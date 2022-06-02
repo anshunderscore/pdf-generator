@@ -178,7 +178,7 @@ function generatePDF() {
             founding_members: founding_members, programs: programs, services: services, donors: financials, expenses: expenses
             })
         html = he.decode(rendered)
-        console.log(html)
+        console.log(data)
         html2pdf(html, {
             margin: 10,
             filename: data.organisation_summary.org_name + ".pdf",
