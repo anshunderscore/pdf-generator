@@ -11,7 +11,7 @@ function moreFields(id, legend) {
     let newFields = document.getElementById(id + counter).cloneNode(true)
     counter++
     newFields.id = id + counter
-
+    
     for (element of newFields.elements) {
         element.value = ""
     }
@@ -87,26 +87,26 @@ function getValues() {
     for (let i = 0; i <= expense_counter; i++) {
         n = i
         if (i == 0) { i = "" }
-        expenses[n] = { head: document.getElementById("expense_head" + i).value, amount: document.getElementById("expense_amount" + i).value }
+        expenses[n] = {head: document.getElementById("expense_head" + i).value, amount: document.getElementById("expense_amount" + i).value }
     }
 
-    const data = { organisation_summary, funds, founding_members, programs, services, financials, expenses }
-
+    const data = {organisation_summary, funds, founding_members, programs, services, financials, expenses}
+    
     return data
 }
 
 function checkUndefined(variable) {
-    if (variable == undefined) { return "" }
+    if (variable == undefined) {return ""}
     return variable
 }
 
 function generatePDF() {
 
-    const data = getValues()
-    console.log(data)
     let html = ""
-    const template = `<!DOCTYPE html><html lang="en"><head> <meta charset="UTF-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Document</title> <link rel="stylesheet" href="pdf.css"></head><body id="template" type="x-tmpl-mustache"> <header> <h1>{{org_name}}</h1> <h3>{{description}}</h3> </header> <div class="heading">contact</div><br>Email: <strong>{{email}}</strong><br>Mobile: <strong>{{mobile}}</strong><br><br>Address:<br><strong>{{address1}}</strong><br>{{address2}}<br>{{pincode}}<br>{{country}}<br><br><div class="heading">PAYMENT</div><br>UPI number: <strong>{{upi_num}}</strong><br>UPI ID: <strong>{{upi_id}}</strong><br><br><br><div class="heading">Fund Request and Utilization</div><br>Mission statement:<br><strong>{{mission_statement}}</strong><br><br>Fund request: <strong>{{fund_request}}</strong><br><br>Fund area: <strong>{{fund_area}}</strong><br><br>Purpose: <strong>{{fund_purpose}}</strong><br><br><br><div class="heading">Founding Members</div><br>{{founding_members}}<br><br><br><div class="heading">Programs</div><br>{{programs}}<br><br><br><div class="heading">Services</div><br>{{services}}<br><br><br><div class="heading">Financials</div><br>{{donors}}<br><br><br><div class="heading">Expenses</div><br>{{expenses}}<br><br></body></html>`
-
+    let client = new XMLHttpRequest()
+    let template = `<!DOCTYPE html><html lang="en"><head> <meta charset="UTF-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Document</title> <link rel="stylesheet" href="pdf.css"></head><body id="template" type="x-tmpl-mustache"> <header> <h1>{{org_name}}</h1> <h3>{{description}}</h3> </header> <div class="heading">contact</div><br>Email: <strong>{{email}}</strong><br>Mobile: <strong>{{mobile}}</strong><br><br>Address:<br><strong>{{address1}}</strong><br>{{address2}}<br>{{pincode}}<br>{{country}}<br><br><div class="heading">PAYMENT</div><br>UPI number: <strong>{{upi_num}}</strong><br>UPI ID: <strong>{{upi_id}}</strong><br><br><br><div class="heading">Fund Request and Utilization</div><br>Mission statement:<br><strong>{{mission_statement}}</strong><br><br>Fund request: <strong>{{fund_request}}</strong><br><br>Fund area: <strong>{{fund_area}}</strong><br><br>Purpose: <strong>{{fund_purpose}}</strong><br><br><br><div class="heading">Founding Members</div><br>{{founding_members}}<br><br><br><div class="heading">Programs</div><br>{{programs}}<br><br><br><div class="heading">Services</div><br>{{services}}<br><br><br><div class="heading">Financials</div><br>{{donors}}<br><br><br><div class="heading">Expenses</div><br>{{expenses}}<br><br></body></html>`
+    const data = getValues()
+    
     let founding_members = ""
     let programs = ""
     let services = ""
@@ -115,8 +115,8 @@ function generatePDF() {
 
     for (let i = 0; i <= founding_member_counter; i++) {
         member = data.founding_members[i]
-        html =
-            `<fieldset>
+        html = 
+        `<fieldset>
             <legend><strong>${checkUndefined(member.name)}</legend><br>
             Email: <strong>${checkUndefined(member.email)}<br><br>
             Mobile: <strong>${checkUndefined(member.mobile)}<br><br>
@@ -126,8 +126,8 @@ function generatePDF() {
     }
     for (let i = 0; i <= program_counter; i++) {
         program = data.programs[i]
-        html =
-            `<fieldset>
+        html = 
+        `<fieldset>
             <legend><strong>${checkUndefined(program.name)}</strong></legend><br>
             Details:<br><strong>${checkUndefined(program.details)}</strong><br><br>
             Start: <strong>${checkUndefined(program.start)}</strong><br><br>
@@ -138,8 +138,8 @@ function generatePDF() {
     }
     for (let i = 0; i <= service_counter; i++) {
         service = data.services[i]
-        html =
-            `<fieldset>
+        html = 
+        `<fieldset>
             <legend><strong>${checkUndefined(service.name)}</strong></legend><br>
             Email: <strong>${checkUndefined(service.description)}</strong><br><br>
             Revenue: <strong>${checkUndefined(service.revenue)}</strong><br><br>
@@ -150,8 +150,8 @@ function generatePDF() {
     }
     for (let i = 0; i <= financial_counter; i++) {
         donor = data.financials[i]
-        html =
-            `<fieldset>
+        html = 
+        `<fieldset>
             <legend><strong>${checkUndefined(donor.donor)}</strong></legend><br>
             Funding: <strong>${checkUndefined(donor.funding)}</strong><br><br>
         </fieldset>`
@@ -159,22 +159,24 @@ function generatePDF() {
     }
     for (let i = 0; i <= expense_counter; i++) {
         expense = data.expenses[i]
-        html =
-            `<fieldset>
+        html = 
+        `<fieldset>
             <legend><strong>${checkUndefined(expense.head)}</strong></legend><br>
             Amount: <strong>${checkUndefined(expense.amount)}</strong><br><br>
         </fieldset>`
         expenses += html
     }
 
-    const rendered = he.decode(Mustache.render(template, {
+    const rendered = Mustache.render(template, {
         org_name: data.organisation_summary.org_name, description: data.organisation_summary.description, email: data.organisation_summary.email, mobile: data.organisation_summary.mobile,
         address1: data.organisation_summary.address1, address2: data.organisation_summary.address2, pincode: data.organisation_summary.pincode, country: data.organisation_summary.country,
         upi_id: data.organisation_summary.upi_id, upi_num: data.organisation_summary.upi_num,
         mission_statement: data.funds.mission, fund_request: data.funds.fund_request, fund_area: data.funds.fund_area, fund_purpose: data.funds.fund_purpose,
         founding_members: founding_members, programs: programs, services: services, donors: financials, expenses: expenses
-    }))
-    html2pdf(rendered, {
+        })
+    html = he.decode(rendered)
+    console.log(data)
+    html2pdf(html, {
         margin: 10,
         filename: data.organisation_summary.org_name + ".pdf",
         enableLinks: true,
