@@ -105,7 +105,7 @@ function generatePDF() {
     let html = ""
     let client = new XMLHttpRequest()
     const template_link = "https://raw.githubusercontent.com/anshunderscore/pdf-generator/main/template.mustache" // would normally be ./template.mustache which doesn't work on github pages
-    client.open('GET', link)
+    client.open('GET', template_link)
     client.onreadystatechange = function () {
         const data = getValues()
         
