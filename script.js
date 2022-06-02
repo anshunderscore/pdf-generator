@@ -103,6 +103,7 @@ function checkUndefined(variable) {
 function generatePDF() {
 
     const data = getValues()
+    console.log(data)
     let html = ""
     const template = `<!DOCTYPE html><html lang="en"><head> <meta charset="UTF-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Document</title> <link rel="stylesheet" href="pdf.css"></head><body id="template" type="x-tmpl-mustache"> <header> <h1>{{org_name}}</h1> <h3>{{description}}</h3> </header> <div class="heading">contact</div><br>Email: <strong>{{email}}</strong><br>Mobile: <strong>{{mobile}}</strong><br><br>Address:<br><strong>{{address1}}</strong><br>{{address2}}<br>{{pincode}}<br>{{country}}<br><br><div class="heading">PAYMENT</div><br>UPI number: <strong>{{upi_num}}</strong><br>UPI ID: <strong>{{upi_id}}</strong><br><br><br><div class="heading">Fund Request and Utilization</div><br>Mission statement:<br><strong>{{mission_statement}}</strong><br><br>Fund request: <strong>{{fund_request}}</strong><br><br>Fund area: <strong>{{fund_area}}</strong><br><br>Purpose: <strong>{{fund_purpose}}</strong><br><br><br><div class="heading">Founding Members</div><br>{{founding_members}}<br><br><br><div class="heading">Programs</div><br>{{programs}}<br><br><br><div class="heading">Services</div><br>{{services}}<br><br><br><div class="heading">Financials</div><br>{{donors}}<br><br><br><div class="heading">Expenses</div><br>{{expenses}}<br><br></body></html>`
 
@@ -173,7 +174,6 @@ function generatePDF() {
         mission_statement: data.funds.mission, fund_request: data.funds.fund_request, fund_area: data.funds.fund_area, fund_purpose: data.funds.fund_purpose,
         founding_members: founding_members, programs: programs, services: services, donors: financials, expenses: expenses
     }))
-    console.log(rendered)
     html2pdf(rendered, {
         margin: 10,
         filename: data.organisation_summary.org_name + ".pdf",
